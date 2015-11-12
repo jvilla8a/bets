@@ -21,19 +21,16 @@
 					<header id="header" class="container">
 						<div class="row">
 							<div class="12u">
-
 								<!-- Logo -->
-									<h1><a href="#" id="logo">Halcyonic</a></h1>
-
+								<h1><a href="#" id="logo">Halcyonic</a></h1>
 								<!-- Nav -->
-									<nav id="nav">
-										<a href="index.html">Homepage</a>
-										<a href="threecolumn.html">Three Column</a>
-										<a href="twocolumn1.html">Two Column #1</a>
-										<a href="twocolumn2.html">Two Column #2</a>
-										<a href="onecolumn.html">One Column</a>
-									</nav>
-
+								<nav id="nav">
+									<a href='<?" . base_url() . "?>index.php/cAdmin/index'>Admin Home</a>
+									<a href="threecolumn.html">Three Column</a>
+									<a href="twocolumn1.html">Two Column #1</a>
+									<a href="twocolumn2.html">Two Column #2</a>
+									<a href="onecolumn.html">One Column</a>
+								</nav>
 							</div>
 						</div>
 					</header>
