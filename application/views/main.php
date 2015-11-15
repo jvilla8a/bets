@@ -1,9 +1,5 @@
+<a href='<?" . base_url() . "?>index.php/cAdmin/index'>Admin Home</a>
 <!DOCTYPE HTML>
-<!--
-	Halcyonic by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Halcyonic by HTML5 UP</title>
@@ -11,6 +7,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/stylesheets/main.css" />
+		<link rel="stylesheet" href="assets/stylesheets/bets.css" />
+		<link rel="stylesheet" href="assets/stylesheets/bootstrap.min.css" />
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>
 	<body>
@@ -21,16 +21,19 @@
 					<header id="header" class="container">
 						<div class="row">
 							<div class="12u">
+
 								<!-- Logo -->
-								<h1><a href="#" id="logo">Halcyonic</a></h1>
+									<h1><a href="#" id="logo">Halcyonic</a></h1>
+
 								<!-- Nav -->
-								<nav id="nav">
-									<a href='<?" . base_url() . "?>index.php/cAdmin/index'>Admin Home</a>
-									<a href="threecolumn.html">Three Column</a>
-									<a href="twocolumn1.html">Two Column #1</a>
-									<a href="twocolumn2.html">Two Column #2</a>
-									<a href="onecolumn.html">One Column</a>
-								</nav>
+									<nav id="nav">
+										<a href="index.php">Inicio</a>
+										<a href="vPartidas.php">Partidas</a>
+										<a href="equipos.php">Equipos</a>
+										<a href="entrevistas.php">Entrevistas</a>
+										<a href="registro.php">Registro</a>
+									</nav>
+
 							</div>
 						</div>
 					</header>
@@ -40,14 +43,40 @@
 								<div class="6u 12u(mobile)">
 
 									<!-- Banner Copy -->
-										<p>We do something really useful, important, and unique. Learn all about it here ...</p>
-										<a href="#" class="button-big">Go on, click me!</a>
-
-								</div>
+										<p>Apuesta por tus equipos favoritos y gana ? mira la informacion sobre tus equipos favoritos...</p>
+										<a href="#" data-toggle="modal" data-target="#myModal" id="btn-inicio" class="button-big">Inicia sesión empezar!</a>
+										<div id="myModal" class="modal fade" role="dialog">
+										  <div class="modal-dialog">
+										  	<div class="modal-content">
+										    	<div class="modal-body">
+										            <form action="" class="form-horizontal" "text-center" method="post">
+											          	<br />
+															<div class="form-group">
+														    	<label class="modal-login" id="home-modal-mail" for="Email">Email</label>
+														    	<input type="email" class="form-control" id="email" placeholder="Email" required>
+														  	</div>
+														  	<div class="form-group">
+														    	<label class="modal-login" id="home-modal-pass" for="Password">Password</label>
+														    	<input type="password" class="form-control" id="pass" placeholder="Password" required>
+														    	<br />
+														    	<button type="button" id="home-modal-login" class="btn btn-success">Login</button>
+														    	<br />
+														    	<br />
+														    	<br />
+														  	</div>
+													</form>
+										     	 </div>
+										      	<div class="modal-footer">
+										       	    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+										      	</div>
+										    </div>
+										  </div>
+										</div>
+									</div>
 								<div class="6u 12u(mobile)">
 
 									<!-- Banner Image -->
-										<a href="#" class="bordered-feature-image"><img src="assets/images/banner.jpg" alt="" /></a>
+										<a href="#" class="bordered-feature-image"><img src="assets/thumbs/banner-lol.jpg" height="220" alt="" /></a>
 
 								</div>
 							</div>
@@ -59,60 +88,68 @@
 				<div id="features-wrapper">
 					<div id="features">
 						<div class="container">
-							<div class="row">
-								<div class="3u 12u(mobile)">
-
-									<!-- Feature #1 -->
-										<section>
-											<a href="#" class="bordered-feature-image"><img src="images/pic01.jpg" alt="" /></a>
-											<h2>Welcome to Halcyonic</h2>
-											<p>
-												This is <strong>Halcyonic</strong>, a free site template
-												by <a href="http://n33.co/">AJ</a> for
-												<a href="http://html5up.net">HTML5 UP</a>. It's responsive,
-												built on HTML5 + CSS3, and includes 5 unique page layouts.
-											</p>
-										</section>
-
+							<div id="last-match">
+								<div id="europe">
+									<img src="assets/images/fnatic.png" alt="Fnatic">
+									<img src="assets/images/origen.png" alt="Origen">
+									<img src="assets/images/h2k.png" alt="H2K">
 								</div>
+								<div id="NorthAmerica">
+									<img src="assets/images/tsm.png" alt="Team Solo Mid">
+									<img src="assets/images/clg.png" alt="Counter Logic Gaming">
+									<img src="assets/images/cloud9.png" alt="Cloud 9">
+								</div>
+								<div id="korea">
+									<img src="assets/images/koo.png" alt="Koo Tigers">
+									<img src="assets/images/kt.png" alt="KT Rolster">
+									<img src="assets/images/skt.png" alt="SKTelecom">
+								</div>
+							</div>
+							<div class="row">
 								<div class="3u 12u(mobile)">
 
 									<!-- Feature #2 -->
 										<section>
-											<a href="#" class="bordered-feature-image"><img src="images/pic02.jpg" alt="" /></a>
-											<h2>Responsive You Say?</h2>
-											<p>
-												Yes! Halcyonic is built on the <a href="http://getskel.com">Skel</a>
-												framework, so it has full responsive support for desktop, tablet,
-												and mobile device displays.
-											</p>
+											<button onclick="lcs()" id="eu-lcs" class="bordered-feature-image"><img src="assets/images/eulcs.jpg" height="110" alt="Eu" /></button>
+											<h2>LCS Europa</h2>
+											<div class="lcs-home">
+												<p>
+													Yes! Halcyonic is built on the
+													framework, so it has full responsive support for desktop, tablet,
+													and mobile device displays.
+												</p>
+											</div>
 										</section>
 
 								</div>
-								<div class="3u 12u(mobile)">
+								<div class="3u 12u(mobile)" style="margin-left:120px;">
 
 									<!-- Feature #3 -->
 										<section>
-											<a href="#" class="bordered-feature-image"><img src="images/pic03.jpg" alt="" /></a>
-											<h2>License Info</h2>
-											<p>
-												Halcyonic is licensed under the <a href="http://html5up.net/license">CCA 3.0</a> license,
-												so use it for personal or commercial use as much as you like (just keep
-												the footer credit intact).
-											</p>
+											<button onclick="lcs()" class="bordered-feature-image"><img src="assets/images/nalcs.jpg" height="110" alt="Na" /></button>
+											<h2>LCS Norte America</h2>
+											<div class="lcs-home">
+												<p>
+													Halcyonic is licensed under the <a href="http://html5up.net/license">CCA 3.0</a> license,
+													so use it for personal or commercial use as much as you like (just keep
+													the footer credit intact).
+												</p>
+											</div>
 										</section>
 
 								</div>
-								<div class="3u 12u(mobile)">
+								<div class="3u 12u(mobile)" style="margin-left:100px;">
 
 									<!-- Feature #4 -->
 										<section>
-											<a href="#" class="bordered-feature-image"><img src="images/pic04.jpg" alt="" /></a>
-											<h2>Volutpat etiam aliquam</h2>
-											<p>
-												Duis neque nisi, dapibus sed mattis quis, rutrum accumsan sed. Suspendisse
-												eu varius nibh. Suspendisse vitae magna eget odio amet mollis.
-											</p>
+											<button onclick="lcs()" class="bordered-feature-image"><img src="assets/images/lck.jpg" height="110" alt="Korea" /></button>
+											<h2>Korea</h2>
+											<div class="lcs-home">
+												<p>
+													Duis neque nisi, dapibus sed mattis quis, rutrum accumsan sed. Suspendisse
+													eu varius nibh. Suspendisse vitae magna eget odio amet mollis.
+												</p>
+											</div>
 										</section>
 
 								</div>
@@ -165,27 +202,10 @@
 
 									<!-- Box #3 -->
 										<section>
-											<header>
-												<h2>What People Are Saying</h2>
-												<h3>And a final subheading about our clients</h3>
-											</header>
-											<ul class="quote-list">
-												<li>
-													<img src="images/pic06.jpg" alt="" />
-													<p>"Neque nisidapibus mattis"</p>
-													<span>Jane Doe, CEO of UntitledCorp</span>
-												</li>
-												<li>
-													<img src="images/pic07.jpg" alt="" />
-													<p>"Lorem ipsum consequat!"</p>
-													<span>John Doe, President of FakeBiz</span>
-												</li>
-												<li>
-													<img src="images/pic08.jpg" alt="" />
-													<p>"Magna veroeros amet tempus"</p>
-													<span>Mary Smith, CFO of UntitledBiz</span>
-												</li>
-											</ul>
+											<div id="twitter">
+												<a class="twitter-timeline" href="https://twitter.com/lolesports" data-widget-id="665914875143716865">Tweets por el @lolesports.</a>
+												<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+											</div>
 										</section>
 
 								</div>
@@ -267,13 +287,24 @@
 
 		</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/skel-viewport.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-
+	<!-- Scripts -->
+		<script>
+			 // $(document).ready(function(){
+				//  	// $("#btn-inicio").click(function(){
+				//  	// 	$("#page-wrapper").css("opacity", "0.30");
+				//  	// });
+				//  	// $("#btn-inicio").click(function(){
+				//  	// 	$("#inside-modal").fadeIn("slow");
+				//  	// });
+			 // }); 
+		</script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/bets.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/skel-viewport.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
 	</body>
 </html>
