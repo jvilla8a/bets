@@ -1,4 +1,3 @@
-<a href='<?" . base_url() . "?>index.php/cAdmin/index'>Admin Home</a>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -27,6 +26,7 @@
 
 								<!-- Nav -->
 									<nav id="nav">
+										<a href='<?" . base_url() . "?>index.php/cAdmin/index'>Admin Home</a>
 										<a href="index.php">Inicio</a>
 										<a href="vPartidas.php">Partidas</a>
 										<a href="equipos.php">Equipos</a>
