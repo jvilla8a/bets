@@ -11,10 +11,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 class cAdmin extends CI_Controller {
-
 	public function __construct() 
     {
         parent::__construct();
+
+        $this->load->database();
         
         $this->load->helper(array("form", "url"));
         $this->load->library(array('form_validation'));
@@ -23,8 +24,15 @@ class cAdmin extends CI_Controller {
     }
 
 	public function index(){
-		$this->load->view('vAdminHome');
-        $leagues = $this->seeAllFields();
+        $leagues = $this->mAdmin->seeAllFields("league");
+        $teams = $this->mAdmin->seeAllFields("team");
+
+        $info = array(
+            'leagues'   =>  $leagues,
+            'teams'     =>  $teams
+        );
+
+        $this->load->view('vAdminHome', $info);
 	}
 
     //---------------- League Methods -------------------//

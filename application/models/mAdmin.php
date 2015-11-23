@@ -28,7 +28,7 @@ class mAdmin extends CI_Model
     }
 
     public function seeAllFields($table){
-         return $this->db->get($table);
+        return $this->db->get($table);
     }
 
     public function seeField($table, $field, $data){

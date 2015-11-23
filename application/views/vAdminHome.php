@@ -23,8 +23,8 @@
 					<div id="teams">
 						<h2 class="text-center">TEAMS</h2>
 
-						<a href="#" class="btn btn-primary">Listar</a>
-						<a href="#" class="btn btn-primary">Agregar</a>
+						<a href="#" class="btn btn-primary">List</a>
+						<a href="#" class="btn btn-primary">Add</a>
 
 						<div id="list-teams">
 							<table class="table table-striped">
@@ -63,25 +63,167 @@
 			                    	<select id="txtTeamLeague" name="txtTeamLeague" class="form-control" placeholder="League" required><?
 										foreach ($leagues->result() as $league)
 										{
-											echo "<option value='$league->usuario'>". ucwords($league->usuario) ."</option>";
+											echo "<option value='$league->id'>". ucwords($league->name) ."</option>";
 										}
 									?></select>
 			                   	</div>
 
+			                   	<div class="clearfix"></div>
+
 			                   	<input type="submit" class="btn btn-success" value="Save"  />
-			                   	<input type="reset" class="btn btn-success" value="Restablecer"/>
+			                   	<input type="reset" class="btn btn-warning" value="Clear"/>
 		                   	<?= form_close() ?>
+
+		                   	<div id="error">
+								<? echo validation_errors(); ?>
+							</div>
 			            </div>
 					</div>
 
 					<div id="players">
 						<h2 class="text-center">PLAYERS</h2>
 						
+						<a href="#" class="btn btn-primary">List</a>
+						<a href="#" class="btn btn-primary">Add</a>
+
+						<div id="list-teams">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<td>Summoner Name</td>
+										<td>Team</td>
+										<td colspan="3"></td>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div id="form-new-player">
+							<?= form_open(base_url()."index.php/cAdmin/") ?>
+								<div class="form-group col-sm-6">
+									<label for="txtSummonerName">Summoner Name</label>
+			                    	<input id="txtSummonerName" name="txtSummonerName" class="form-control" maxlenght="50" placeholder="Summoner Name" type="text" required />
+			                   	</div>
+
+			                   	<div class="form-group col-sm-6">
+									<label for="txtPlayerTeam">Player Team</label>
+			                    	<select id="txtPlayerTeam" name="txtPlayerTeam" class="form-control" required><?
+										foreach ($teams->result() as $team)
+										{
+											echo "<option value='$team->id'>". ucwords($team->shortname) ."</option>";
+										}
+									?></select>
+			                   	</div>
+
+			                   	<div class="clearfix"></div>
+
+			                   	<input type="submit" class="btn btn-success" value="Save"  />
+			                   	<input type="reset" class="btn btn-warning" value="Clear"/>
+		                   	<?= form_close() ?>
+
+		                   	<div id="error">
+								<? echo validation_errors(); ?>
+							</div>
+			            </div>
 					</div>
 
 					<div id="matchs">
 						<h2 class="text-center">MATCHS</h2>
-						
+
+						<a href="#" class="btn btn-primary">List</a>
+						<a href="#" class="btn btn-primary">Add</a>
+
+						<div id="list-teams">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<td>Team Blue</td>
+										<td>Team Red</td>
+										<td>Date</td>
+										<td>Season</td>
+										<td>Split</td>
+										<td>State</td>
+										<td colspan="3">Opciones</td>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td>Activar</td>
+										<td>Ver</td>
+										<td>Modificar</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div id="form-new-match">
+							<?= form_open(base_url()."index.php/cAdmin/") ?>
+								<div class="form-group col-sm-6">
+									<label for="txtMatchTeamBlue">Team Blue</label>
+			                    	<select id="txtMatchTeamBlue" name="txtMatchTeamBlue" class="form-control" placeholder="League" required><?
+										foreach ($teams->result() as $team)
+										{
+											echo "<option value='$team->id'>". ucwords($team->shortname) ."</option>";
+										}
+									?></select>
+			                   	</div>
+
+			                   	<div class="form-group col-sm-6">
+									<label for="txtMatchTeamRed">Team Red</label>
+			                    	<select id="txtMatchTeamRed" name="txtMatchTeamRed" class="form-control" placeholder="League" required><?
+										foreach ($teams->result() as $team)
+										{
+											echo "<option value='$team->id'>". ucwords($team->shortname) ."</option>";
+										}
+									?></select>
+			                   	</div>
+
+								<div class="form-group col-sm-6">
+									<label for="txtMatchDate">Date</label>
+			                    	<input id="txtMatchDate" name="txtMatchDate" class="form-control" type="date" required />
+			                   	</div>
+
+			                   	<div class="form-group col-sm-6">
+									<label for="txtMatchSeasson">Seasson</label>
+			                    	<select id="txtMatchSeasson" name="txtMatchSeasson" class="form-control" placeholder="League" required>
+										<option value='5'>Seasson 5</option>
+										<option value='6'>Seasson 6</option>
+									</select>
+			                   	</div>
+
+			                   	<div class="form-group col-sm-6">
+									<label for="txtMatchSplit">split</label>
+			                    	<select id="txtMatchSplit" name="txtMatchSplit" class="form-control" placeholder="League" required>
+										<option value='spring'>Spring</option>
+										<option value='summer'>Summer</option>
+									</select>
+			                   	</div>
+
+			                   	<div class="clearfix"></div>
+
+			                   	<input type="submit" class="btn btn-success" value="Save"  />
+			                   	<input type="reset" class="btn btn-warning" value="Clear"/>
+		                   	<?= form_close() ?>
+
+		                   	<div id="error">
+								<? echo validation_errors(); ?>
+							</div>
+			            </div>						
 					</div>
 
 					<div id="leagues">
