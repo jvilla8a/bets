@@ -4,6 +4,7 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<? echo '<link rel="stylesheet" type="text/css" href="' . base_url() . '/assets/stylesheets/admin.css">' ?>
 
 	<? echo '<script type="text/javascript" src="' . base_url() . '/assets/js/jquery-2.1.4.min.js"></script>' ?>
@@ -23,25 +24,29 @@
 					<div id="teams">
 						<h2 class="text-center">TEAMS</h2>
 
-						<a href="#" class="btn btn-primary">List</a>
-						<a href="#" class="btn btn-primary">Add</a>
+						<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
+						<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
 
 						<div id="list-teams">
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<td>Short Name</td>
-										<td>Name</td>
-										<td colspan="3"></td>
+										<td><b>Short Name</b></td>
+										<td><b>Name</b></td>
+										<td colspan="3"><b>Options</b></td>
 									</tr>
 								</thead>
 
-								<tbody>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
+								<tbody><?
+									foreach ($teams->result() as $team){
+									echo "	<tr>
+												<td>". $team->shortname ."</td>	
+												<td>". $team->name ."</td>
+												<td>Ver</td>
+												<td>Editar</td>
+												<td>Eliminar</td>
+											</tr>";
+									}?>
 								</tbody>
 							</table>
 						</div>
@@ -70,7 +75,7 @@
 
 			                   	<div class="clearfix"></div>
 
-			                   	<input type="submit" class="btn btn-success" value="Save"  />
+			                   	<input type="submit" class="btn btn-success" value="Save"/>
 			                   	<input type="reset" class="btn btn-warning" value="Clear"/>
 		                   	<?= form_close() ?>
 
@@ -83,21 +88,32 @@
 					<div id="players">
 						<h2 class="text-center">PLAYERS</h2>
 						
-						<a href="#" class="btn btn-primary">List</a>
-						<a href="#" class="btn btn-primary">Add</a>
+						<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
+						<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
 
 						<div id="list-teams">
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<td>Summoner Name</td>
-										<td>Team</td>
-										<td colspan="3"></td>
+										<td><b>Summoner Name</b></td>
+										<td><b>Team</b></td>
+										<td colspan="3"><b>Options</b></td>
 									</tr>
 								</thead>
 
-								<tbody>
+								<tbody><?/*
+									foreach ($players->result() as $player){
+									echo "	<tr>
+												<td>". $player->summoner ."</td>	
+												<td>". $player->idteam ."</td>
+												<td>Ver</td>
+												<td>Editar</td>
+												<td>Eliminar</td>
+											</tr>";
+									}*/?>
 									<tr>
+										<td></td>
+										<td></td>
 										<td></td>
 										<td></td>
 										<td></td>
@@ -125,7 +141,7 @@
 
 			                   	<div class="clearfix"></div>
 
-			                   	<input type="submit" class="btn btn-success" value="Save"  />
+			                   	<input type="submit" class="btn btn-success" value="Save"/>
 			                   	<input type="reset" class="btn btn-warning" value="Clear"/>
 		                   	<?= form_close() ?>
 
@@ -138,20 +154,20 @@
 					<div id="matchs">
 						<h2 class="text-center">MATCHS</h2>
 
-						<a href="#" class="btn btn-primary">List</a>
-						<a href="#" class="btn btn-primary">Add</a>
+						<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
+						<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
 
 						<div id="list-teams">
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<td>Team Blue</td>
-										<td>Team Red</td>
-										<td>Date</td>
-										<td>Season</td>
-										<td>Split</td>
-										<td>State</td>
-										<td colspan="3">Opciones</td>
+										<td><b>Team Blue</b></td>
+										<td><b>Team Red</b></td>
+										<td><b>Date</b></td>
+										<td><b>Season</b></td>
+										<td><b>Split</b></td>
+										<td><b>State</b></td>
+										<td colspan="3"><b>Options</b></td>
 									</tr>
 								</thead>
 
@@ -216,7 +232,7 @@
 
 			                   	<div class="clearfix"></div>
 
-			                   	<input type="submit" class="btn btn-success" value="Save"  />
+			                   	<input type="submit" class="btn btn-success" value="Save"/>
 			                   	<input type="reset" class="btn btn-warning" value="Clear"/>
 		                   	<?= form_close() ?>
 
@@ -229,11 +245,106 @@
 					<div id="leagues">
 						<h2 class="text-center">LEAGUES</h2>
 						
+						<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
+						<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
+
+						<div id="list-teams">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<td><b>League Name</b></td>
+										<td><b>Region</b></td>
+										<td colspan="3"><b>Options</b></td>
+									</tr>
+								</thead>
+
+								<tbody><?
+									foreach ($leagues->result() as $league){
+									echo "	<tr>
+												<td>". $league->name ."</td>
+												<td>Ver</td>
+												<td>Editar</td>
+												<td>Eliminar</td>
+											</tr>";
+									}?>
+								</tbody>
+							</table>
+						</div>
+
+						<div id="form-new-league">
+							<?= form_open(base_url()."index.php/cAdmin/") ?>
+								<div class="form-group col-sm-6">
+									<label for="txtLeagueName">League Name</label>
+			                    	<input id="txtLeagueName" name="txtLeagueName" class="form-control" maxlenght="50" placeholder="League Name" type="text" required />
+			                   	</div>
+
+			                   	<div class="form-group col-sm-6">
+									<label for="txtRegionLeague">Region</label>
+			                    	<select id="txtRegionLeague" name="txtRegionLeague" class="form-control" required><?
+										foreach ($regions->result() as $region)
+										{
+											echo "<option value='$region->id'>". ucwords($region->name) ."</option>";
+										}
+									?></select>
+			                   	</div>
+
+			                   	<div class="clearfix"></div>
+
+			                   	<input type="submit" class="btn btn-success" value="Save"/>
+			                   	<input type="reset" class="btn btn-warning" value="Clear"/>
+		                   	<?= form_close() ?>
+
+		                   	<div id="error">
+								<? echo validation_errors(); ?>
+							</div>
+			            </div>
 					</div>
 
 					<div id="regions">
 						<h2 class="text-center">REGIONS</h2>
 						
+						<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
+						<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
+
+						<div id="list-teams">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<td><b>Region Name</b></td>
+										<td colspan="3"><b>Options</b></td>
+									</tr>
+								</thead>
+
+								<tbody><?
+									foreach ($regions->result() as $region){
+									echo "	<tr>	
+												<td>". $region->name ."</td>
+												<td>Ver</td>
+												<td>Editar</td>
+												<td>Eliminar</td>
+											</tr>";
+									}?>
+								</tbody>
+							</table>
+						</div>
+
+						<div id="form-new-player">
+							<?= form_open(base_url()."index.php/cAdmin/") ?>
+								<div class="form-group col-sm-6">
+									<label for="txtRegionName">Region Name</label>
+			                    	<input id="txtRegionName" name="txtRegionName" class="form-control" maxlenght="50" placeholder="Region Name" type="text" required />
+			                   	</div>
+
+			                   	<div class="clearfix"></div>
+
+			                   	<input type="submit" class="btn btn-success" value="Save"/>
+			                   	<input type="reset" class="btn btn-warning" value="Clear"/>
+		                   	<?= form_close() ?>
+
+		                   	<div id="error">
+								<? echo validation_errors(); ?>
+							</div>
+			            </div>
 					</div>
 				</div>
 			</div>

@@ -26,19 +26,20 @@ class cAdmin extends CI_Controller {
 	public function index(){
         $leagues = $this->mAdmin->seeAllFields("league");
         $teams = $this->mAdmin->seeAllFields("team");
+        $regions = $this->mAdmin->seeAllFields("region");
+        $players = $this->mAdmin->seeAllFields("player");
 
         $info = array(
             'leagues'   =>  $leagues,
-            'teams'     =>  $teams
+            'teams'     =>  $teams,
+            'regions'   =>  $regions,
+            'player'    =>  $players
         );
 
         $this->load->view('vAdminHome', $info);
 	}
 
     //---------------- League Methods -------------------//
-    public function seeAllLeagues(){
-        return $this->mAdmin->seeAllFields("league");
-    }
     //-------------- End League Methods -----------------//
 }
 ?>
