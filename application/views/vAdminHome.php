@@ -52,7 +52,7 @@
 						</div>
 
 						<div id="form-new-team">
-							<?= form_open(base_url()."index.php/cAdmin/") ?>
+							<?= form_open(base_url()."index.php/cAdmin/addTeam") ?>
 								<div class="form-group col-sm-12">
 									<label for="txtTeamName">Team Name</label>
 			                    	<input id="txtTeamName" name="txtTeamName" class="form-control" maxlenght="50" placeholder="Team Name" type="text" required />
@@ -101,29 +101,31 @@
 									</tr>
 								</thead>
 
-								<tbody><?/*
+								<tbody><?
 									foreach ($players->result() as $player){
-									echo "	<tr>
-												<td>". $player->summoner ."</td>	
-												<td>". $player->idteam ."</td>
-												<td>Ver</td>
-												<td>Editar</td>
-												<td>Eliminar</td>
-											</tr>";
-									}*/?>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
+									/*$query = $this->db->getwhere('team', array('id' => $player->idteam));
+									$teamName = $query->result();*/
+									/*$query = $teams->result();
+									$teamName = $query['id', $player->idteam];*/
+										foreach ($teams->result() as $team) {
+											if ($team->id == $player->idteam) {
+												$teamName = $team->shortname;
+											}
+										}
+	 									echo "	<tr>
+													<td>". $player->summoner ."</td>	
+													<td>". $teamName ."</td>
+													<td>Ver</td>
+													<td>Editar</td>
+													<td>Eliminar</td>
+												</tr>";
+									}?>
 								</tbody>
 							</table>
 						</div>
 
 						<div id="form-new-player">
-							<?= form_open(base_url()."index.php/cAdmin/") ?>
+							<?= form_open(base_url()."index.php/cAdmin/addPlayer") ?>
 								<div class="form-group col-sm-6">
 									<label for="txtSummonerName">Summoner Name</label>
 			                    	<input id="txtSummonerName" name="txtSummonerName" class="form-control" maxlenght="50" placeholder="Summoner Name" type="text" required />
@@ -188,7 +190,7 @@
 						</div>
 
 						<div id="form-new-match">
-							<?= form_open(base_url()."index.php/cAdmin/") ?>
+							<?= form_open(base_url()."index.php/cAdmin/addMatch") ?>
 								<div class="form-group col-sm-6">
 									<label for="txtMatchTeamBlue">Team Blue</label>
 			                    	<select id="txtMatchTeamBlue" name="txtMatchTeamBlue" class="form-control" placeholder="League" required><?
