@@ -33,7 +33,7 @@
 									<tr>
 										<td><b>Short Name</b></td>
 										<td><b>Name</b></td>
-										<td colspan="3"><b>Options</b></td>
+										<td colspan="2"><b>Options</b></td>
 									</tr>
 								</thead>
 
@@ -42,9 +42,8 @@
 									echo "	<tr>
 												<td>". $team->shortname ."</td>	
 												<td>". $team->name ."</td>
-												<td>Ver</td>
-												<td>Editar</td>
-												<td>Eliminar</td>
+												<td><a href='". base_url() ."index.php/cAdmin/'><i class='fa fa-toggle-off'></i></a></td>
+												<td><a href='". base_url() ."index.php/cAdmin/editTeam'><i class='fa fa-pencil'></i> Edit</a></td>
 											</tr>";
 									}?>
 								</tbody>
@@ -84,6 +83,8 @@
 							</div>
 			            </div>
 					</div>
+
+					<hr>
 
 					<div id="players">
 						<h2 class="text-center">PLAYERS</h2>
@@ -153,6 +154,8 @@
 			            </div>
 					</div>
 
+					<hr>
+
 					<div id="matchs">
 						<h2 class="text-center">MATCHS</h2>
 
@@ -173,18 +176,37 @@
 									</tr>
 								</thead>
 
-								<tbody>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td>Activar</td>
-										<td>Ver</td>
-										<td>Modificar</td>
-									</tr>
+								<tbody><?
+									foreach ($matchs->result() as $match){
+										foreach ($tMHistories->result() as $teamh) {
+											if ($teamh->idmatch == $match->id) {
+												foreach ($teams->result() as $team) {
+													if ($teamh->idteam == $team->id) {
+														if ($teamh->side == 1) {
+															$teamBlueSide = $team->shortname;
+														}
+
+														if ($teamh->side == 0) {
+															$teamRedSide = $team->shortname;
+														}
+													}
+												}
+											}
+										}
+										$date = $match->date;
+										$date = date("j F");
+	 									echo "	<tr>
+													<td>". $teamBlueSide ."</td>	
+													<td>". $teamRedSide ."</td>
+													<td>". $date ."</td>
+													<td>". $match->season ."</td>
+													<td>". $match->split ."</td>
+													<td>". $match->active ."</td>
+													<td>Ver</td>
+													<td>Editar</td>
+													<td>Eliminar</td>
+												</tr>";
+									}?>
 								</tbody>
 							</table>
 						</div>
@@ -244,6 +266,8 @@
 			            </div>						
 					</div>
 
+					<hr>
+
 					<div id="leagues">
 						<h2 class="text-center">LEAGUES</h2>
 						
@@ -301,6 +325,8 @@
 							</div>
 			            </div>
 					</div>
+
+					<hr>
 
 					<div id="regions">
 						<h2 class="text-center">REGIONS</h2>

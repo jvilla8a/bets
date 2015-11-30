@@ -24,24 +24,25 @@ class cAdmin extends CI_Controller {
     }
 
 	public function index(){
-        $this->form_validation->set_rules("txtTeamName", "Name", "trim|required|max_length[50]");
-        $this->form_validation->set_rules("txtTeamShortName", "Short Name", "trim|required|max_length[3]|min_length[2]");
-        $this->form_validation->set_rules("txtTeamLeague", "League", "required");
-
         $leagues = $this->mAdmin->seeAllFields("league");
         $teams = $this->mAdmin->seeAllFields("team");
         $regions = $this->mAdmin->seeAllFields("region");
         $players = $this->mAdmin->seeAllFields("player");
+        $matchs = $this->mAdmin->seeAllFields("match");
+        $teamMatchHistories = $this->mAdmin->seeAllFields("teammatchhistory");
 
         $info = array(
-            'leagues'   =>  $leagues,
-            'teams'     =>  $teams,
-            'regions'   =>  $regions,
-            'players'   =>  $players
+            'leagues'       =>  $leagues,
+            'teams'         =>  $teams,
+            'regions'       =>  $regions,
+            'players'       =>  $players,
+            'matchs'        =>  $matchs,
+            'tMHistories'   =>  $teamMatchHistories,
         );
 
         $this->load->view('vAdminHome', $info);
 	}
+
 
     //---------------- Team Methods -------------------//
     public function addTeam(){
@@ -65,41 +66,44 @@ class cAdmin extends CI_Controller {
         $this->mAdmin->addField("player", $data);
         $this->index();
     }
+
+    public function editTeam($id){
+        
+    }
     //-------------- End Player Methods -----------------//
 
 
     //---------------- Match Methods -------------------//
     public function addMatch(){
-        $idMatch = $this->mAdmin->seeAllFields("match");
-        $players = $this->mAdmin->seeAllFields("player");
-        $idMatch = $idMatch->num_rows();
-
         $dataMatch = array(
             'date'      => $this->input->post("txtMatchDate"),  
             'season'    => $this->input->post("txtMatchSeasson"),  
             'split'     => $this->input->post("txtMatchSplit"),  
         );
         $this->mAdmin->addField("match", $dataMatch);
+        $match = $this->mAdmin->seeAllFields("match");
+        $match = $match->last_row();
 
         $dataBlueTeam = array(
-            'idmatch'   => ++$idMatch,
+            'idmatch'   => $match->id,
             'idteam'    => $this->input->post("txtMatchTeamBlue"),
             'side'      => 1
         );
 
         $dataRedTeam = array(
-            'idmatch'   => $idMatch,
+            'idmatch'   => $match->id,
             'idteam'    => $this->input->post("txtMatchTeamRed"),
             'side'      => 0
         );
         $this->mAdmin->addField("teammatchhistory", $dataBlueTeam);
         $this->mAdmin->addField("teammatchhistory", $dataRedTeam);
+        $players = $this->mAdmin->seeAllFields("player");
 
-        foreach ($players->result() as $player) {
-            if ($player->idteam == $this->input->post("txtMatchTeamBlue") || $team->idteam == $this->input->post("txtMatchTeamRed")) {
+        foreach ($players->result() as $player){
+            if ($player->idteam == $this->input->post("txtMatchTeamBlue") || $player->idteam == $this->input->post("txtMatchTeamRed")){
                 $dataPlayer = array(
                     'idplayer'  => $player->id,
-                    'idmatch'   => $idMatch,
+                    'idmatch'   => $match->id,
                 );
 
                 $this->mAdmin->addField("playermatchhistory", $dataPlayer);
