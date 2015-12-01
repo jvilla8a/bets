@@ -54,6 +54,34 @@ class cAdmin extends CI_Controller {
         $this->mAdmin->addField("team", $data);
         $this->index();
     }
+
+    public function editTeam($id){
+        $team = $this->mAdmin->seeField("team", "id", $id);
+        $leagues = $this->mAdmin->seeAllFields("league");
+
+        if ($team->num_rows() != 0) {
+            $info = array(
+                'team'      =>  $team,
+                'leagues'   => $leagues,
+            );
+
+            $this->load->view('vEditTeam', $info);
+        }
+        else{
+            $this->index();
+        }
+    }
+
+    public function updateTeam(){
+        $id = $this->input->post("txtIdTeam");
+        $data = array(
+            'name'      => $this->input->post("txtTeamName"),  
+            'shortname' => $this->input->post("txtTeamShortName"),  
+            'idleague'  => $this->input->post("txtTeamLeague"),  
+        );
+        $this->mAdmin->modifyField("team", $id, $data);
+        $this->index();
+    }
     //-------------- End Team Methods -----------------//
 
 
@@ -65,10 +93,6 @@ class cAdmin extends CI_Controller {
         );
         $this->mAdmin->addField("player", $data);
         $this->index();
-    }
-
-    public function editTeam($id){
-        
     }
     //-------------- End Player Methods -----------------//
 

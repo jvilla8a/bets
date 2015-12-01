@@ -22,7 +22,7 @@ class mAdmin extends CI_Model
     	$this->db->insert($table, $data);
     }
 
-    public function modifyField($table, $data, $id){
+    public function modifyField($table, $id, $data){
     	$this->db->where("id", $id);
         $this->db->update($table, $data);
     }
