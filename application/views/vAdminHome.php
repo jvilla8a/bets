@@ -250,8 +250,8 @@
 													<td>". $match->season ."</td>
 													<td>". $match->split ."</td>
 													<td><a href='". base_url() ."index.php/cAdmin/desactivateMatch/". $match->id ."'><i class='fa fa-toggle-on'></i></a></td>
-													<td><a href='". base_url() ."index.php/cAdmin/seeMatch/". $player->id ."'><i class='fa fa-eye'></i></a></td>
-													<td><a href='". base_url() ."index.php/cAdmin/editMatch/". $player->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/seeMatch/". $match->id ."'><i class='fa fa-eye'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editMatch/". $match->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
 													<td><a href='". base_url() ."index.php/cAdmin/deleteMatch/". $match->id ."'><i class='fa fa-trash'></i></a></td>
 												</tr>";
 									}
@@ -301,8 +301,8 @@
 													<td>". $match->season ."</td>
 													<td>". $match->split ."</td>
 													<td><a href='". base_url() ."index.php/cAdmin/activateMatch/". $match->id ."'><i class='fa fa-toggle-off'></i></a></td>
-													<td><a href='". base_url() ."index.php/cAdmin/seeMatch/". $player->id ."'><i class='fa fa-eye'></i></a></td>
-													<td><a href='". base_url() ."index.php/cAdmin/editMatch/". $player->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/seeMatch/". $match->id ."'><i class='fa fa-eye'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editMatch/". $match->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
 													<td><a href='". base_url() ."index.php/cAdmin/deleteMatch/". $match->id ."'><i class='fa fa-trash'></i></a></td>
 												</tr>";
 									}
@@ -375,7 +375,7 @@
 					<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
 
 					<div id="list-teams">
-						<table class="table table-striped">
+						<table class="table table-striped"><h3>Active</h3>
 							<thead>
 								<tr>
 									<td><b>League Name</b></td>
@@ -386,19 +386,50 @@
 
 							<tbody><?
 								foreach ($leagues->result() as $league){
-								echo "	<tr>
-											<td>". $league->name ."</td>
-											<td>Ver</td>
-											<td>Editar</td>
-											<td>Eliminar</td>
-										</tr>";
+									foreach ($regions->result() as $region) {
+										if ($league->active == 1 && $league->idregion == $region->id) {
+											echo "	<tr>
+														<td>". $league->name ."</td>
+														<td>". $region->name ."</td> 
+														<td><a href='". base_url() ."index.php/cAdmin/desactivateLeague/". $league->id ."'><i class='fa fa-toggle-on'></i></a></td>
+														<td><a href='". base_url() ."index.php/cAdmin/editLeague/". $league->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+													</tr>";
+										}
+									}
+								}?>
+							</tbody>
+						</table>
+
+						<hr>
+
+						<table class="table table-striped"><h3>Deactive</h3>
+							<thead>
+								<tr>
+									<td><b>League Name</b></td>
+									<td><b>Region</b></td>
+									<td colspan="3"><b>Options</b></td>
+								</tr>
+							</thead>
+
+							<tbody><?
+								foreach ($leagues->result() as $league){
+									foreach ($regions->result() as $region) {
+										if ($league->active == 0 && $league->idregion == $region->id) {
+											echo "	<tr>
+														<td>". $league->name ."</td>
+														<td>". $region->name ."</td> 
+														<td><a href='". base_url() ."index.php/cAdmin/activateLeague/". $league->id ."'><i class='fa fa-toggle-off'></i></a></td>
+														<td><a href='". base_url() ."index.php/cAdmin/editLeague/". $league->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+													</tr>";
+										}
+									}
 								}?>
 							</tbody>
 						</table>
 					</div>
 
 					<div id="form-new-league">
-						<?= form_open(base_url()."index.php/cAdmin/") ?>
+						<?= form_open(base_url()."index.php/cAdmin/addLeague") ?>
 							<div class="form-group col-sm-6">
 								<label for="txtLeagueName">League Name</label>
 		                    	<input id="txtLeagueName" name="txtLeagueName" class="form-control" maxlenght="50" placeholder="League Name" type="text" required />
@@ -435,7 +466,7 @@
 					<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
 
 					<div id="list-teams">
-						<table class="table table-striped">
+						<table class="table table-striped"><h3>Active</h3>
 							<thead>
 								<tr>
 									<td><b>Region Name</b></td>
@@ -445,19 +476,43 @@
 
 							<tbody><?
 								foreach ($regions->result() as $region){
-								echo "	<tr>	
-											<td>". $region->name ."</td>
-											<td>Ver</td>
-											<td>Editar</td>
-											<td>Eliminar</td>
-										</tr>";
+									if ($region->active == 1) {
+										echo "	<tr>	
+													<td>". $region->name ."</td>
+													<td><a href='". base_url() ."index.php/cAdmin/desactivateRegion/". $region->id ."'><i class='fa fa-toggle-on'></i></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editRegion/". $region->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+												</tr>";
+									}
+								}?>
+							</tbody>
+						</table>
+
+						<hr>
+
+						<table class="table table-striped"><h3>Deactive</h3>
+							<thead>
+								<tr>
+									<td><b>Region Name</b></td>
+									<td colspan="3"><b>Options</b></td>
+								</tr>
+							</thead>
+
+							<tbody><?
+								foreach ($regions->result() as $region){
+									if ($region->active == 0) {
+										echo "	<tr>	
+													<td>". $region->name ."</td>
+													<td><a href='". base_url() ."index.php/cAdmin/activateRegion/". $region->id ."'><i class='fa fa-toggle-off'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editRegion/". $league->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+												</tr>";
+									}
 								}?>
 							</tbody>
 						</table>
 					</div>
 
 					<div id="form-new-player">
-						<?= form_open(base_url()."index.php/cAdmin/") ?>
+						<?= form_open(base_url()."index.php/cAdmin/addRegion") ?>
 							<div class="form-group col-sm-6">
 								<label for="txtRegionName">Region Name</label>
 		                    	<input id="txtRegionName" name="txtRegionName" class="form-control" maxlenght="50" placeholder="Region Name" type="text" required />

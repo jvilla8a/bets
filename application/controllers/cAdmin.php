@@ -195,17 +195,42 @@ class cAdmin extends CI_Controller {
         $this->index();
     }
 
+    public function seeMatch($id){
+        $match = $this->mAdmin->seeField("match", "id", $id);
+        $teams = $this->mAdmin->seeAllFields("team");
+        $players = $this->mAdmin->seeAllFields("player");
+        $tmHistory = $this->mAdmin->seeAllFields("teammatchhistory");
+        $pmHistory = $this->mAdmin->seeAllFields("playermatchhistory");
+
+        if ($match->num_rows() != 0) {
+            $info = array(
+                'match'         =>  $match,
+                'teams'         =>  $teams,
+                'players'       =>  $players,
+                'tmhistories'   =>  $tmHistory,
+                'pmhistories'   =>  $pmHistory,
+            );
+
+            $this->load->view('vSeeMatch', $info);
+        }
+        else{
+            $this->index();
+        }
+    }
+
     public function editMatch($id){
         $match = $this->mAdmin->seeField("match", "id", $id);
         $teams = $this->mAdmin->seeAllFields("team");
+        $tmHistory = $this->mAdmin->seeAllFields("teammatchhistory");
 
-        if ($team->num_rows() != 0) {
+        if ($match->num_rows() != 0) {
             $info = array(
-                'match'     =>  $match,
-                'teams'     =>  $teams,
+                'match'         =>  $match,
+                'teams'         =>  $teams,
+                'tmhistories'   =>  $tmHistory,
             );
 
-            $this->load->view('vEditTeam', $info);
+            $this->load->view('vEditMatch', $info);
         }
         else{
             $this->index();
@@ -213,13 +238,13 @@ class cAdmin extends CI_Controller {
     }
 
     public function updateMatch(){
-        $id = $this->input->post("txtIdTeam");
+        $id = $this->input->post("txtIdMatch");
         $data = array(
-            'name'      => $this->input->post("txtTeamName"),  
-            'shortname' => $this->input->post("txtTeamShortName"),  
-            'idleague'  => $this->input->post("txtTeamLeague"),  
+            'date'      => $this->input->post("txtMatchDate"),  
+            'season'    => $this->input->post("txtMatchSeasson"),  
+            'split'     => $this->input->post("txtMatchSplit"),  
         );
-        $this->mAdmin->modifyField("team", $id, $data);
+        $this->mAdmin->modifyField("match", $id, $data);
         $this->index();
     }
 
@@ -244,4 +269,110 @@ class cAdmin extends CI_Controller {
         $this->index();
     }
     //-------------- End Match Methods -----------------//
+
+
+
+    //---------------- League Methods -------------------//
+    public function addLeague(){
+        $data = array(
+            'idregion'  => $this->input->post("txtRegionLeague"),  
+            'name'    => $this->input->post("txtLeagueName"),    
+        );
+        $this->mAdmin->addField("league", $data);
+        $this->index();
+    }
+
+    public function editLeague($id){
+        $league = $this->mAdmin->seeField("league", "id", $id);
+        $regions = $this->mAdmin->seeAllFields("region");
+
+        if ($league->num_rows() != 0) {
+            $info = array(
+                'league'         =>  $league,
+                'regions'         =>  $regions,
+            );
+
+            $this->load->view('vEditLeague', $info);
+        }
+        else{
+            $this->index();
+        }
+    }
+
+    public function updateLeague(){
+        $id = $this->input->post("txtIdLeague");
+        $data = array(
+            'idregion'      => $this->input->post("txtRegionLeague"),  
+            'name'    => $this->input->post("txtLeagueName"),  
+        );
+        $this->mAdmin->modifyField("league", $id, $data);
+        $this->index();
+    }
+
+    public function activateLeague($id){
+        $data = array(
+            'active' => 1,
+        );
+        $this->mAdmin->modifyField("league", $id, $data);
+        $this->index();
+    }
+
+    public function desactivateLeague($id){
+        $data = array(
+            'active' => 0,
+        );
+        $this->mAdmin->modifyField("league", $id, $data);
+        $this->index();
+    }
+    //-------------- End League Methods -----------------//
+
+    //---------------- League Methods -------------------//
+    public function addRegion(){
+        $data = array(  
+            'name'    => $this->input->post("txtRegionName"),    
+        );
+        $this->mAdmin->addField("region", $data);
+        $this->index();
+    }
+
+    public function editRegion($id){
+        $region = $this->mAdmin->seeField("region", "id", $id);
+
+        if ($region->num_rows() != 0) {
+            $info = array(
+                'region'         =>  $region,
+            );
+
+            $this->load->view('vEditRegion', $info);
+        }
+        else{
+            $this->index();
+        }
+    }
+
+    public function updateRegion(){
+        $id = $this->input->post("txtIdRegion");
+        $data = array(  
+            'name'    => $this->input->post("txtRegionName"),  
+        );
+        $this->mAdmin->modifyField("region", $id, $data);
+        $this->index();
+    }
+
+    public function activateRegion($id){
+        $data = array(
+            'active' => 1,
+        );
+        $this->mAdmin->modifyField("region", $id, $data);
+        $this->index();
+    }
+
+    public function desactivateRegion($id){
+        $data = array(
+            'active' => 0,
+        );
+        $this->mAdmin->modifyField("region", $id, $data);
+        $this->index();
+    }
+    //-------------- End League Methods -----------------//
 }?>

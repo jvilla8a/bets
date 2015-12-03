@@ -14,38 +14,49 @@
 	<div class="container">
 		<div class="row">
 			<h2 class="text-center">Editing Match</h2><?
-				$match = $match->row();
-				foreach ($team->result() as $team) {
-					if ($team->id == $team->idleague) {
-						$leagueName = $league->name;
+
+			$match = $match->row();
+			foreach ($tmhistories->result() as $tmhistory) {
+				if ($match->id == $tmhistory->idmatch) {
+					foreach ($teams->result() as $team) {
+						if ($team->id == $tmhistory->idteam && $tmhistory->side == 1) {
+							$teamBlue = $team->shortname;
+						}
+						if ($team->id == $tmhistory->idteam && $tmhistory->side == 0) {
+							$teamRed = $team->shortname;
+						}
 					}
 				}
-			?>
+			}?>
+
+			<h4 class="text-center"><? echo $teamBlue ." vs ". $teamRed ?></h4>
+
 			<div class="col-xs-12">
-				<div id="form-edit-team">
-					<?= form_open(base_url()."index.php/cAdmin/updateTeam") ?>
+				<div id="form-edit-Match">
+					<?= form_open(base_url()."index.php/cAdmin/updateMatch") ?>
 						<div class="form-group col-sm-12">
-	                    	<input id="txtIdTeam" name="txtIdTeam" class="form-control" type="hidden" value="<? echo $team->id ?>" required />
+	                    	<input id="txtIdMatch" name="txtIdMatch" class="form-control" type="hidden" value="<? echo $match->id ?>" required />
 	                   	</div>
 
-						<div class="form-group col-sm-12">
-							<label for="txtTeamName">Team Name: <? echo $team->name; ?></label>
-	                    	<input id="txtTeamName" name="txtTeamName" class="form-control" maxlenght="50" placeholder="Team Name" type="text" required />
+						<div class="form-group col-sm-6">
+							<label for="txtMatchDate">Match Date: <? echo $match->date; ?></label>
+	                    	<input id="txtMatchDate" name="txtMatchDate" class="form-control" maxlenght="50" placeholder="Macth Date" type="date" required />
 	                   	</div>
 
 	                   	<div class="form-group col-sm-6">
-							<label for="txtTeamShortName">Team Short Name: <? echo $team->shortname; ?></label>
-	                    	<input id="txtTeamShortName" name="txtTeamShortName" class="form-control" maxlenght="3" placeholder="Team Short Name" type="text" required />
+							<label for="txtMatchSeasson">Match Seasson: <? echo $match->season; ?></label>
+	                    	<select id="txtMatchSeasson" name="txtMatchSeasson" class="form-control" placeholder="Seasson" required>
+								<option value='5'>Seasson 5</option>
+								<option value='6'>Seasson 6</option>
+							</select>
 	                   	</div>
 
 	                   	<div class="form-group col-sm-6">
-							<label for="txtTeamLeague">League: <? echo $leagueName; ?></label>
-	                    	<select id="txtTeamLeague" name="txtTeamLeague" class="form-control" placeholder="League" required><?
-								foreach ($leagues->result() as $league)
-								{
-									echo "<option value='$league->id'>". ucwords($league->name) ."</option>";
-								}
-							?></select>
+							<label for="txtMatchSplit">Match Split: <? echo $match->split; ?></label>
+	                    	<select id="txtMatchSplit" name="txtMatchSplit" class="form-control" placeholder="Split" required>
+								<option value='spring'>Spring</option>
+								<option value='summer'>Summer</option>
+							</select>
 	                   	</div>
 
 	                   	<div class="clearfix"></div>
