@@ -21,7 +21,7 @@
 					<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
 
 					<div id="list-teams">
-						<table class="table table-striped">
+						<table class="table table-striped"><h3>Active</h3>
 							<thead>
 								<tr>
 									<td><b>Short Name</b></td>
@@ -32,12 +32,39 @@
 
 							<tbody><?
 								foreach ($teams->result() as $team){
-								echo "	<tr>
-											<td>". $team->shortname ."</td>	
-											<td>". $team->name ."</td>
-											<td><a href='". base_url() ."index.php/cAdmin/'><i class='fa fa-toggle-off'></i></a></td>
-											<td><a href='". base_url() ."index.php/cAdmin/editTeam/". $team->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
-										</tr>";
+									if ($team->active == 1) {
+										echo "	<tr>
+													<td>". $team->shortname ."</td>	
+													<td>". $team->name ."</td>
+													<td><a href='". base_url() ."index.php/cAdmin/desactivateTeam/". $team->id ."'><i class='fa fa-toggle-on'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editTeam/". $team->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+												</tr>";
+									}
+								}?>
+							</tbody>
+						</table>
+
+						<hr>
+
+						<table class="table table-striped"><h3>Deactive</h3>
+							<thead>
+								<tr>
+									<td><b>Short Name</b></td>
+									<td><b>Name</b></td>
+									<td colspan="2"><b>Options</b></td>
+								</tr>
+							</thead>
+
+							<tbody><?
+								foreach ($teams->result() as $team){
+									if ($team->active == 0) {
+										echo "	<tr>
+													<td>". $team->shortname ."</td>	
+													<td>". $team->name ."</td>
+													<td><a href='". base_url() ."index.php/cAdmin/activateTeam/". $team->id ."'><i class='fa fa-toggle-off'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editTeam/". $team->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+												</tr>";
+									}
 								}?>
 							</tbody>
 						</table>
@@ -86,33 +113,60 @@
 					<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
 
 					<div id="list-teams">
-						<table class="table table-striped">
+						<table class="table table-striped"><h3>Active</h3>
 							<thead>
 								<tr>
 									<td><b>Summoner Name</b></td>
 									<td><b>Team</b></td>
-									<td colspan="3"><b>Options</b></td>
+									<td colspan="2"><b>Options</b></td>
 								</tr>
 							</thead>
 
 							<tbody><?
 								foreach ($players->result() as $player){
-								/*$query = $this->db->getwhere('team', array('id' => $player->idteam));
-								$teamName = $query->result();*/
-								/*$query = $teams->result();
-								$teamName = $query['id', $player->idteam];*/
 									foreach ($teams->result() as $team) {
 										if ($team->id == $player->idteam) {
 											$teamName = $team->shortname;
 										}
 									}
- 									echo "	<tr>
-												<td>". $player->summoner ."</td>	
-												<td>". $teamName ."</td>
-												<td>Ver</td>
-												<td>Editar</td>
-												<td>Eliminar</td>
-											</tr>";
+									if ($player->active == 1) {
+	 									echo "	<tr>
+													<td>". $player->summoner ."</td>	
+													<td>". $teamName ."</td>
+													<td><a href='". base_url() ."index.php/cAdmin/desactivatePlayer/". $player->id ."'><i class='fa fa-toggle-on'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editPlayer/". $player->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+												</tr>";
+									}
+								}?>
+							</tbody>
+						</table>
+
+						<hr>
+
+						<table class="table table-striped"><h3>Deactive</h3>
+							<thead>
+								<tr>
+									<td><b>Summoner Name</b></td>
+									<td><b>Team</b></td>
+									<td colspan="2"><b>Options</b></td>
+								</tr>
+							</thead>
+
+							<tbody><?
+								foreach ($players->result() as $player){
+									foreach ($teams->result() as $team) {
+										if ($team->id == $player->idteam) {
+											$teamName = $team->shortname;
+										}
+									}
+ 									if ($player->active == 0) {
+	 									echo "	<tr>
+													<td>". $player->summoner ."</td>	
+													<td>". $teamName ."</td>
+													<td><a href='". base_url() ."index.php/cAdmin/activatePlayer/". $player->id ."'><i class='fa fa-toggle-off'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editPlayer/". $player->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+												</tr>";
+									}
 								}?>
 							</tbody>
 						</table>
@@ -156,7 +210,7 @@
 					<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
 
 					<div id="list-teams">
-						<table class="table table-striped">
+						<table class="table table-striped"><h3>Active</h3>
 							<thead>
 								<tr>
 									<td><b>Team Blue</b></td>
@@ -171,34 +225,87 @@
 
 							<tbody><?
 								foreach ($matchs->result() as $match){
-									foreach ($tMHistories->result() as $teamh) {
-										if ($teamh->idmatch == $match->id) {
-											foreach ($teams->result() as $team) {
-												if ($teamh->idteam == $team->id) {
-													if ($teamh->side == 1) {
-														$teamBlueSide = $team->shortname;
-													}
+									if ($match->active == 1) {
+										foreach ($tMHistories->result() as $teamh) {
+											if ($teamh->idmatch == $match->id) {
+												foreach ($teams->result() as $team) {
+													if ($teamh->idteam == $team->id) {
+														if ($teamh->side == 1) {
+															$teamBlueSide = $team->shortname;
+														}
 
-													if ($teamh->side == 0) {
-														$teamRedSide = $team->shortname;
+														if ($teamh->side == 0) {
+															$teamRedSide = $team->shortname;
+														}
 													}
 												}
 											}
 										}
+										$date = $match->date;
+										$date = date("j F");
+	 									echo "	<tr>
+													<td>". $teamBlueSide ."</td>	
+													<td>". $teamRedSide ."</td>
+													<td>". $date ."</td>
+													<td>". $match->season ."</td>
+													<td>". $match->split ."</td>
+													<td><a href='". base_url() ."index.php/cAdmin/desactivateMatch/". $match->id ."'><i class='fa fa-toggle-on'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/seeMatch/". $player->id ."'><i class='fa fa-eye'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editMatch/". $player->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/deleteMatch/". $match->id ."'><i class='fa fa-trash'></i></a></td>
+												</tr>";
 									}
-									$date = $match->date;
-									$date = date("j F");
- 									echo "	<tr>
-												<td>". $teamBlueSide ."</td>	
-												<td>". $teamRedSide ."</td>
-												<td>". $date ."</td>
-												<td>". $match->season ."</td>
-												<td>". $match->split ."</td>
-												<td>". $match->active ."</td>
-												<td>Ver</td>
-												<td>Editar</td>
-												<td>Eliminar</td>
-											</tr>";
+								}?>
+							</tbody>
+						</table>
+
+						<hr>
+
+						<table class="table table-striped"><h3>Deactive</h3>
+							<thead>
+								<tr>
+									<td><b>Team Blue</b></td>
+									<td><b>Team Red</b></td>
+									<td><b>Date</b></td>
+									<td><b>Season</b></td>
+									<td><b>Split</b></td>
+									<td><b>State</b></td>
+									<td colspan="3"><b>Options</b></td>
+								</tr>
+							</thead>
+
+							<tbody><?
+								foreach ($matchs->result() as $match){
+									if ($match->active == 0) {
+										foreach ($tMHistories->result() as $teamh) {
+											if ($teamh->idmatch == $match->id) {
+												foreach ($teams->result() as $team) {
+													if ($teamh->idteam == $team->id) {
+														if ($teamh->side == 1) {
+															$teamBlueSide = $team->shortname;
+														}
+
+														if ($teamh->side == 0) {
+															$teamRedSide = $team->shortname;
+														}
+													}
+												}
+											}
+										}
+										$date = $match->date;
+										$date = date("j F");
+	 									echo "	<tr>
+													<td>". $teamBlueSide ."</td>	
+													<td>". $teamRedSide ."</td>
+													<td>". $date ."</td>
+													<td>". $match->season ."</td>
+													<td>". $match->split ."</td>
+													<td><a href='". base_url() ."index.php/cAdmin/activateMatch/". $match->id ."'><i class='fa fa-toggle-off'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/seeMatch/". $player->id ."'><i class='fa fa-eye'></i></a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/editMatch/". $player->id ."'><i class='fa fa-pencil'></i> Edit</a></td>
+													<td><a href='". base_url() ."index.php/cAdmin/deleteMatch/". $match->id ."'><i class='fa fa-trash'></i></a></td>
+												</tr>";
+									}
 								}?>
 							</tbody>
 						</table>

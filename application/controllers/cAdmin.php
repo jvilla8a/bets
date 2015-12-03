@@ -82,6 +82,22 @@ class cAdmin extends CI_Controller {
         $this->mAdmin->modifyField("team", $id, $data);
         $this->index();
     }
+
+    public function activateTeam($id){
+        $data = array(
+            'active' => 1,
+        );
+        $this->mAdmin->modifyField("team", $id, $data);
+        $this->index();
+    }
+
+    public function desactivateTeam($id){
+        $data = array(
+            'active' => 0,
+        );
+        $this->mAdmin->modifyField("team", $id, $data);
+        $this->index();
+    }
     //-------------- End Team Methods -----------------//
 
 
@@ -92,6 +108,49 @@ class cAdmin extends CI_Controller {
             'idteam'    => $this->input->post("txtPlayerTeam"),    
         );
         $this->mAdmin->addField("player", $data);
+        $this->index();
+    }
+
+    public function editPlayer($id){
+        $player = $this->mAdmin->seeField("player", "id", $id);
+        $teams = $this->mAdmin->seeAllFields("team");
+
+        if ($player->num_rows() != 0) {
+            $info = array(
+                'player'    =>  $player,
+                'teams'     =>  $teams,
+            );
+
+            $this->load->view('vEditPlayer', $info);
+        }
+        else{
+            $this->index();
+        }
+    }
+
+    public function updatePlayer(){
+        $id = $this->input->post("txtIdPlayer");
+        $data = array(
+            'summoner'      =>  $this->input->post("txtPlayerSummoner"),  
+            'idteam'    =>  $this->input->post("txtPlayerTeam"),  
+        );
+        $this->mAdmin->modifyField("player", $id, $data);
+        $this->index();
+    }
+
+    public function activatePlayer($id){
+        $data = array(
+            'active' => 1,
+        );
+        $this->mAdmin->modifyField("player", $id, $data);
+        $this->index();
+    }
+
+    public function desactivatePlayer($id){
+        $data = array(
+            'active' => 0,
+        );
+        $this->mAdmin->modifyField("player", $id, $data);
         $this->index();
     }
     //-------------- End Player Methods -----------------//
@@ -133,9 +192,56 @@ class cAdmin extends CI_Controller {
                 $this->mAdmin->addField("playermatchhistory", $dataPlayer);
             }
         }
+        $this->index();
+    }
 
+    public function editMatch($id){
+        $match = $this->mAdmin->seeField("match", "id", $id);
+        $teams = $this->mAdmin->seeAllFields("team");
+
+        if ($team->num_rows() != 0) {
+            $info = array(
+                'match'     =>  $match,
+                'teams'     =>  $teams,
+            );
+
+            $this->load->view('vEditTeam', $info);
+        }
+        else{
+            $this->index();
+        }
+    }
+
+    public function updateMatch(){
+        $id = $this->input->post("txtIdTeam");
+        $data = array(
+            'name'      => $this->input->post("txtTeamName"),  
+            'shortname' => $this->input->post("txtTeamShortName"),  
+            'idleague'  => $this->input->post("txtTeamLeague"),  
+        );
+        $this->mAdmin->modifyField("team", $id, $data);
+        $this->index();
+    }
+
+    public function activateMatch($id){
+        $data = array(
+            'active' => 1,
+        );
+        $this->mAdmin->modifyField("match", $id, $data);
+        $this->index();
+    }
+
+    public function desactivateMatch($id){
+        $data = array(
+            'active' => 0,
+        );
+        $this->mAdmin->modifyField("match", $id, $data);
+        $this->index();
+    }
+
+    public function deleteMatch($id){
+        $this->mAdmin->deleteField("match", $id);
         $this->index();
     }
     //-------------- End Match Methods -----------------//
-}
-?>
+}?>
