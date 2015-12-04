@@ -8,6 +8,7 @@
 	<? echo '<link rel="stylesheet" type="text/css" href="' . base_url() . '/assets/stylesheets/admin.css">' ?>
 
 	<? echo '<script type="text/javascript" src="' . base_url() . '/assets/js/jquery-2.1.4.min.js"></script>' ?>
+	<? echo '<script type="text/javascript" src="' . base_url() . '/assets/js/bets.js"></script>' ?>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -20,7 +21,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Admin</a>
+				<a class="navbar-brand">Admin</a>
 			</div>
 
 			<div class="container">
@@ -37,8 +38,8 @@
 				<div id="teams">
 					<h2 class="text-center">TEAMS</h2>
 
-					<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
-					<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
+					<a class="btn btn-primary" id="btnListTeams"><i class="fa fa-list"></i>  List</a>
+					<a class="btn btn-primary" id="btnAddTeams"><i class="fa fa-plus"></i>  Add</a>
 
 					<div id="list-teams">
 						<table class="table table-striped"><h3>Active</h3>
@@ -129,10 +130,10 @@
 			<div id="players">
 				<h2 class="text-center">PLAYERS</h2>
 
-				<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
-				<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
+				<a class="btn btn-primary" id="btnListPlayers"><i class="fa fa-list"></i>  List</a>
+				<a class="btn btn-primary" id="btnAddPlayers"><i class="fa fa-plus"></i>  Add</a>
 
-				<div id="list-teams">
+				<div id="list-players">
 					<table class="table table-striped"><h3>Active</h3>
 						<thead>
 							<tr>
@@ -226,10 +227,10 @@
 		<div id="matchs">
 			<h2 class="text-center">MATCHS</h2>
 
-			<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
-			<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
+			<a class="btn btn-primary"  id="btnListMatchs"><i class="fa fa-list"></i>  List</a>
+			<a class="btn btn-primary" id="btnAddMatchs"><i class="fa fa-plus"></i>  Add</a>
 
-			<div id="list-teams">
+			<div id="list-matchs">
 				<table class="table table-striped"><h3>Active</h3>
 					<thead>
 						<tr>
@@ -391,10 +392,10 @@
 		<div id="leagues">
 			<h2 class="text-center">LEAGUES</h2>
 
-			<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
-			<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
+			<a class="btn btn-primary" id="btnListLeagues"><i class="fa fa-list"></i>  List</a>
+			<a class="btn btn-primary" id="btnAddLeagues"><i class="fa fa-plus"></i>  Add</a>
 
-			<div id="list-teams">
+			<div id="list-leagues">
 				<table class="table table-striped"><h3>Active</h3>
 					<thead>
 						<tr>
@@ -482,10 +483,10 @@
 	<div id="regions">
 		<h2 class="text-center">REGIONS</h2>
 
-		<a href="#" class="btn btn-primary"><i class="fa fa-list"></i>  List</a>
-		<a href="#" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
+		<a class="btn btn-primary" id="btnListRegions"><i class="fa fa-list"></i>  List</a>
+		<a class="btn btn-primary" id="btnAddRegions"><i class="fa fa-plus"></i>  Add</a>
 
-		<div id="list-teams">
+		<div id="list-regions">
 			<table class="table table-striped"><h3>Active</h3>
 				<thead>
 					<tr>
@@ -531,7 +532,7 @@
 	</table>
 </div>
 
-<div id="form-new-player">
+<div id="form-new-region">
 	<?= form_open(base_url()."index.php/cAdmin/addRegion") ?>
 	<div class="form-group col-sm-6">
 		<label for="txtRegionName">Region Name</label>

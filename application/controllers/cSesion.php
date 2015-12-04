@@ -42,7 +42,7 @@ class cSesion extends CI_Controller {
 					'nick' 			=> $nick,
 					'password' 	=> $pass,
 				);
-				$this->session->set_userdata($info);
+				// $this->session->set_userdata($info);
 				redirect("/cAdmin/index");
 			}
 			else{
