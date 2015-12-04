@@ -13,26 +13,25 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<h2 class="text-center">Editing Player</h2><?
-				$region = $region->row();
-			?>
-			<div class="col-xs-12">
-				<div id="form-edit-league">
-					<?= form_open(base_url()."index.php/cAdmin/updateRegion") ?>
-							<div class="form-group col-sm-12">
-		                    	<input id="txtIdRegion" name="txtIdRegion" class="form-control" type="hidden" value="<? echo $region->id ?>" required />
+			<h2 class="text-center">Login</h2>
+			<div class="col-xs-4 col-xs-offset-4">
+				<div id="form-login">
+					<?= form_open("cSesion/login") ?>
+						<div class="form-group col-sm-12">
+							<label for="txtNickname">Nickname </label>
+		                    		<input id="txtNickname" name="txtNickname" class="form-control" maxlenght="50" placeholder="Nickname" type="text" required />
 		                   	</div>
 
-							<div class="form-group col-sm-12">
-								<label for="txtRegionName">League Name: </label><? echo $region->name;?>
-		                    	<input id="txtRegionName" name="txtRegionName" class="form-control" maxlenght="50" placeholder="Region Name" type="text" required />
+		                   	<div class="form-group col-sm-12">
+							<label for="txtPassword">Password: </label>
+		                    		<input id="txtPassword" name="txtPassword" class="form-control" maxlenght="50" placeholder="Password" type="pass" required />
 		                   	</div>
 
 		                   	<div class="clearfix"></div>
 
-		                   	<input type="submit" class="btn btn-success" value="Save"/>
+		                   	<input type="submit" class="btn btn-success" value="Submit"/>
 		                   	<input type="reset" class="btn btn-warning" value="Clear"/>
-		                   	<a href="<? echo base_url() ?>index.php/cAdmin/index" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> Back</a>
+		                   	<a href="<? echo base_url() ?>index.php/formulario/index" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> Back</a>
 	                   	<?= form_close() ?>
 
 	                   	<div id="error">

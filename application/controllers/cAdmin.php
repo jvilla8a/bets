@@ -11,19 +11,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 
 class cAdmin extends CI_Controller {
-	public function __construct() 
-    {
+    public function __construct(){
         parent::__construct();
 
         $this->load->database();
-        
+
         $this->load->helper(array("form", "url"));
         $this->load->library(array('form_validation'));
 
         $this->load->model("mAdmin");
     }
 
-	public function index(){
+    public function index(){
         $leagues = $this->mAdmin->seeAllFields("league");
         $teams = $this->mAdmin->seeAllFields("team");
         $regions = $this->mAdmin->seeAllFields("region");
@@ -41,15 +40,15 @@ class cAdmin extends CI_Controller {
         );
 
         $this->load->view('vAdminHome', $info);
-	}
+    }
 
 
     //---------------- Team Methods -------------------//
     public function addTeam(){
         $data = array(
-            'name'      => $this->input->post("txtTeamName"),  
-            'shortname' => $this->input->post("txtTeamShortName"),  
-            'idleague'  => $this->input->post("txtTeamLeague"),  
+            'name'      => $this->input->post("txtTeamName"),
+            'shortname' => $this->input->post("txtTeamShortName"),
+            'idleague'  => $this->input->post("txtTeamLeague"),
         );
         $this->mAdmin->addField("team", $data);
         $this->index();
@@ -75,9 +74,9 @@ class cAdmin extends CI_Controller {
     public function updateTeam(){
         $id = $this->input->post("txtIdTeam");
         $data = array(
-            'name'      => $this->input->post("txtTeamName"),  
-            'shortname' => $this->input->post("txtTeamShortName"),  
-            'idleague'  => $this->input->post("txtTeamLeague"),  
+            'name'      => $this->input->post("txtTeamName"),
+            'shortname' => $this->input->post("txtTeamShortName"),
+            'idleague'  => $this->input->post("txtTeamLeague"),
         );
         $this->mAdmin->modifyField("team", $id, $data);
         $this->index();
@@ -104,8 +103,8 @@ class cAdmin extends CI_Controller {
     //---------------- Player Methods -------------------//
     public function addPlayer(){
         $data = array(
-            'summoner'  => $this->input->post("txtSummonerName"),  
-            'idteam'    => $this->input->post("txtPlayerTeam"),    
+            'summoner'  => $this->input->post("txtSummonerName"),
+            'idteam'    => $this->input->post("txtPlayerTeam"),
         );
         $this->mAdmin->addField("player", $data);
         $this->index();
@@ -131,8 +130,8 @@ class cAdmin extends CI_Controller {
     public function updatePlayer(){
         $id = $this->input->post("txtIdPlayer");
         $data = array(
-            'summoner'      =>  $this->input->post("txtPlayerSummoner"),  
-            'idteam'    =>  $this->input->post("txtPlayerTeam"),  
+            'summoner'      =>  $this->input->post("txtPlayerSummoner"),
+            'idteam'    =>  $this->input->post("txtPlayerTeam"),
         );
         $this->mAdmin->modifyField("player", $id, $data);
         $this->index();
@@ -159,9 +158,9 @@ class cAdmin extends CI_Controller {
     //---------------- Match Methods -------------------//
     public function addMatch(){
         $dataMatch = array(
-            'date'      => $this->input->post("txtMatchDate"),  
-            'season'    => $this->input->post("txtMatchSeasson"),  
-            'split'     => $this->input->post("txtMatchSplit"),  
+            'date'      => $this->input->post("txtMatchDate"),
+            'season'    => $this->input->post("txtMatchSeasson"),
+            'split'     => $this->input->post("txtMatchSplit"),
         );
         $this->mAdmin->addField("match", $dataMatch);
         $match = $this->mAdmin->seeAllFields("match");
@@ -240,9 +239,9 @@ class cAdmin extends CI_Controller {
     public function updateMatch(){
         $id = $this->input->post("txtIdMatch");
         $data = array(
-            'date'      => $this->input->post("txtMatchDate"),  
-            'season'    => $this->input->post("txtMatchSeasson"),  
-            'split'     => $this->input->post("txtMatchSplit"),  
+            'date'      => $this->input->post("txtMatchDate"),
+            'season'    => $this->input->post("txtMatchSeasson"),
+            'split'     => $this->input->post("txtMatchSplit"),
         );
         $this->mAdmin->modifyField("match", $id, $data);
         $this->index();
@@ -275,8 +274,8 @@ class cAdmin extends CI_Controller {
     //---------------- League Methods -------------------//
     public function addLeague(){
         $data = array(
-            'idregion'  => $this->input->post("txtRegionLeague"),  
-            'name'    => $this->input->post("txtLeagueName"),    
+            'idregion'  => $this->input->post("txtRegionLeague"),
+            'name'    => $this->input->post("txtLeagueName"),
         );
         $this->mAdmin->addField("league", $data);
         $this->index();
@@ -302,8 +301,8 @@ class cAdmin extends CI_Controller {
     public function updateLeague(){
         $id = $this->input->post("txtIdLeague");
         $data = array(
-            'idregion'      => $this->input->post("txtRegionLeague"),  
-            'name'    => $this->input->post("txtLeagueName"),  
+            'idregion'      => $this->input->post("txtRegionLeague"),
+            'name'    => $this->input->post("txtLeagueName"),
         );
         $this->mAdmin->modifyField("league", $id, $data);
         $this->index();
@@ -328,8 +327,8 @@ class cAdmin extends CI_Controller {
 
     //---------------- League Methods -------------------//
     public function addRegion(){
-        $data = array(  
-            'name'    => $this->input->post("txtRegionName"),    
+        $data = array(
+            'name'    => $this->input->post("txtRegionName"),
         );
         $this->mAdmin->addField("region", $data);
         $this->index();
@@ -352,8 +351,8 @@ class cAdmin extends CI_Controller {
 
     public function updateRegion(){
         $id = $this->input->post("txtIdRegion");
-        $data = array(  
-            'name'    => $this->input->post("txtRegionName"),  
+        $data = array(
+            'name'    => $this->input->post("txtRegionName"),
         );
         $this->mAdmin->modifyField("region", $id, $data);
         $this->index();

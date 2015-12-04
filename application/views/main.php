@@ -5,12 +5,15 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/stylesheets/main.css" />
-		<link rel="stylesheet" href="assets/stylesheets/bets.css" />
-		<link rel="stylesheet" href="assets/stylesheets/bootstrap.min.css" />
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<? echo '<link rel="stylesheet" type="text/css" href="' . base_url() . '/assets/stylesheets/main.css">' ?>
+		<? echo '<link rel="stylesheet" type="text/css" href="' . base_url() . '/assets/stylesheets/bets.css">' ?>
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+		<? echo '<script type="text/javascript" src="' . base_url() . '/assets/js/jquery-2.1.4.min.js"></script>' ?>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -26,12 +29,12 @@
 
 								<!-- Nav -->
 									<nav id="nav">
-										<a href='<?" . base_url() . "?>index.php/cAdmin/index'>Admin Home</a>
-										<a href="index.php">Inicio</a>
+										<a href='<?" . base_url() . "?>index.php/cAdmin/index'>Admin</a>
 										<a href="vPartidas.php">Partidas</a>
 										<a href="equipos.php">Equipos</a>
 										<a href="entrevistas.php">Entrevistas</a>
 										<a href="registro.php">Registro</a>
+										<a href='<?" . base_url() . "?>index.php/cSesion/index'>Iniciar Sesión</a>
 									</nav>
 
 							</div>
@@ -296,7 +299,7 @@
 				//  	// $("#btn-inicio").click(function(){
 				//  	// 	$("#inside-modal").fadeIn("slow");
 				//  	// });
-			 // }); 
+			 // });
 		</script>
 		<script src="assets/js/bootstrap.min.js"></script>
 		<script src="assets/js/bets.js"></script>
