@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2015 a las 06:09:01
+-- Tiempo de generación: 04-12-2015 a las 18:32:44
 -- Versión del servidor: 10.1.8-MariaDB
 -- Versión de PHP: 5.6.14
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bet`
 --
-CREATE DATABASE IF NOT EXISTS `bet` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `bet`;
 
 -- --------------------------------------------------------
 
@@ -46,16 +44,18 @@ CREATE TABLE `bet` (
 CREATE TABLE `league` (
   `id` int(11) NOT NULL,
   `idregion` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL
+  `name` varchar(100) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `league`
 --
 
-INSERT INTO `league` (`id`, `idregion`, `name`) VALUES
-(1, 1, 'NA LCS'),
-(2, 2, 'EU LCS');
+INSERT INTO `league` (`id`, `idregion`, `name`, `active`) VALUES
+(1, 1, 'NA LCS', 1),
+(2, 2, 'EU LCS', 1),
+(3, 3, 'LCK', 0);
 
 -- --------------------------------------------------------
 
@@ -76,7 +76,10 @@ CREATE TABLE `match` (
 --
 
 INSERT INTO `match` (`id`, `date`, `active`, `season`, `split`) VALUES
-(1, '2015-11-28 00:00:00', 1, 5, 'spring');
+(1, '2015-11-28 00:00:00', 1, 5, 'spring'),
+(9, '2015-11-29 00:00:00', 1, 5, 'spring'),
+(10, '2015-11-29 00:00:00', 1, 5, 'spring'),
+(11, '2015-12-24 00:00:00', 0, 6, 'summer');
 
 -- --------------------------------------------------------
 
@@ -87,16 +90,17 @@ INSERT INTO `match` (`id`, `date`, `active`, `season`, `split`) VALUES
 CREATE TABLE `player` (
   `id` int(11) NOT NULL,
   `summoner` varchar(255) NOT NULL,
-  `idteam` int(11) NOT NULL
+  `idteam` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `player`
 --
 
-INSERT INTO `player` (`id`, `summoner`, `idteam`) VALUES
-(1, 'Bjergsen', 1),
-(2, 'xPeke', 3);
+INSERT INTO `player` (`id`, `summoner`, `idteam`, `active`) VALUES
+(1, 'Bjergsen', 1, 1),
+(2, 'xPeke', 3, 0);
 
 -- --------------------------------------------------------
 
@@ -119,7 +123,10 @@ CREATE TABLE `playermatchhistory` (
 --
 
 INSERT INTO `playermatchhistory` (`id`, `idplayer`, `idmatch`, `kills`, `deaths`, `assists`, `mvp`) VALUES
-(1, 1, 1, 0, 0, 0, 0);
+(1, 1, 1, 0, 0, 0, 0),
+(5, 2, 10, 0, 0, 0, 0),
+(6, 1, 11, 0, 0, 0, 0),
+(7, 2, 11, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -129,16 +136,18 @@ INSERT INTO `playermatchhistory` (`id`, `idplayer`, `idmatch`, `kills`, `deaths`
 
 CREATE TABLE `region` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `region`
 --
 
-INSERT INTO `region` (`id`, `name`) VALUES
-(1, 'North America'),
-(2, 'Europe');
+INSERT INTO `region` (`id`, `name`, `active`) VALUES
+(1, 'North America', 1),
+(2, 'Europe', 0),
+(3, 'Korea', 0);
 
 -- --------------------------------------------------------
 
@@ -150,17 +159,19 @@ CREATE TABLE `team` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `shortname` char(3) NOT NULL,
-  `idleague` int(11) NOT NULL
+  `idleague` int(11) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `team`
 --
 
-INSERT INTO `team` (`id`, `name`, `shortname`, `idleague`) VALUES
-(1, 'Team Solo Mid', 'TSM', 1),
-(2, 'Counter Logic Gaming', 'CLG', 1),
-(3, 'Origen', 'OG', 2);
+INSERT INTO `team` (`id`, `name`, `shortname`, `idleague`, `active`) VALUES
+(1, 'Team Solo Mid', 'TSM', 1, 1),
+(2, 'Counter Logic Gaming', 'CLG', 1, 0),
+(3, 'Origen', 'OG', 2, 1),
+(4, 'Fnatic', 'FNC', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -182,7 +193,13 @@ CREATE TABLE `teammatchhistory` (
 
 INSERT INTO `teammatchhistory` (`id`, `idmatch`, `idteam`, `side`, `winner`) VALUES
 (1, 1, 1, 1, 0),
-(2, 1, 2, 0, 0);
+(2, 1, 2, 0, 0),
+(14, 9, 4, 1, 0),
+(15, 9, 3, 0, 0),
+(16, 10, 3, 1, 0),
+(17, 10, 4, 0, 0),
+(18, 11, 1, 1, 0),
+(19, 11, 3, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -236,7 +253,9 @@ ALTER TABLE `player`
 -- Indices de la tabla `playermatchhistory`
 --
 ALTER TABLE `playermatchhistory`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idmatch` (`idmatch`),
+  ADD KEY `idplayer` (`idplayer`);
 
 --
 -- Indices de la tabla `region`
@@ -257,7 +276,7 @@ ALTER TABLE `team`
 ALTER TABLE `teammatchhistory`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idmatch` (`idmatch`,`idteam`),
-  ADD KEY `idteam` (`idteam`);
+  ADD KEY `teammatchhistory_ibfk_2` (`idteam`);
 
 --
 -- Indices de la tabla `user`
@@ -280,37 +299,37 @@ ALTER TABLE `bet`
 -- AUTO_INCREMENT de la tabla `league`
 --
 ALTER TABLE `league`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `match`
 --
 ALTER TABLE `match`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `player`
 --
 ALTER TABLE `player`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `playermatchhistory`
 --
 ALTER TABLE `playermatchhistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `region`
 --
 ALTER TABLE `region`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `team`
 --
 ALTER TABLE `team`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `teammatchhistory`
 --
 ALTER TABLE `teammatchhistory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
@@ -333,6 +352,13 @@ ALTER TABLE `player`
   ADD CONSTRAINT `player_ibfk_1` FOREIGN KEY (`idteam`) REFERENCES `team` (`id`);
 
 --
+-- Filtros para la tabla `playermatchhistory`
+--
+ALTER TABLE `playermatchhistory`
+  ADD CONSTRAINT `playermatchhistory_ibfk_1` FOREIGN KEY (`idmatch`) REFERENCES `match` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `playermatchhistory_ibfk_2` FOREIGN KEY (`idplayer`) REFERENCES `player` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `team`
 --
 ALTER TABLE `team`
@@ -342,54 +368,8 @@ ALTER TABLE `team`
 -- Filtros para la tabla `teammatchhistory`
 --
 ALTER TABLE `teammatchhistory`
-  ADD CONSTRAINT `teammatchhistory_ibfk_1` FOREIGN KEY (`idmatch`) REFERENCES `match` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `teammatchhistory_ibfk_2` FOREIGN KEY (`idteam`) REFERENCES `team` (`id`) ON UPDATE CASCADE;
-
-
---
--- Metadatos
---
-USE `phpmyadmin`;
-
---
--- Metadatos para bet
---
-
---
--- Metadatos para league
---
-
---
--- Metadatos para match
---
-
---
--- Metadatos para player
---
-
---
--- Metadatos para playermatchhistory
---
-
---
--- Metadatos para region
---
-
---
--- Metadatos para team
---
-
---
--- Metadatos para teammatchhistory
---
-
---
--- Metadatos para user
---
-
---
--- Metadatos para bet
---
+  ADD CONSTRAINT `teammatchhistory_ibfk_1` FOREIGN KEY (`idmatch`) REFERENCES `match` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `teammatchhistory_ibfk_2` FOREIGN KEY (`idteam`) REFERENCES `team` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
